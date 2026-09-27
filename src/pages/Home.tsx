@@ -161,7 +161,7 @@ const Home = ({ navigation }: any) => {
         </View>
 
         {/* Stats Section */}
-        {(user?.role === "TEACHER" || "ADMIN" )&&
+        {/* {(user?.role === "TEACHER" || "ADMIN" )&&
           <View style={styles.statsContainer}>
             <View style={styles.statCard}>
               <View style={styles.statsIconBox}>
@@ -196,9 +196,9 @@ const Home = ({ navigation }: any) => {
               <View style={[styles.statsUnderline, {backgroundColor: '#3157ff'}]}/>
             </View>
           </View>
-        }
+        } */}
 
-        {(user?.role === 'TEACHER' || 'ADMIN' ) && <ScoreBoardSmall />}
+        {/* {(user?.role === 'TEACHER' || 'ADMIN' ) && <ScoreBoardSmall />} */}
 
         {/* Group Study Section */}
         {(user?.role !== 'TEACHER' || 'ADMIN' ) &&

@@ -54,6 +54,19 @@ export const AuthProvider = ({
       // Cookie: accessToken=...; refreshToken=...
       const response = await api.get('/auth/me');
 
+      // Guard: if somehow a non-student session persisted (e.g. app updated
+      // from a shared build), log them out instead of letting them in.
+      if (response.data.data?.role !== 'STUDENT') {
+        console.log('Non-student role detected during auth check, logging out');
+        await AsyncStorage.removeItem('accessToken');
+        await AsyncStorage.removeItem('refreshToken');
+        await AsyncStorage.removeItem('userRole');
+        await AsyncStorage.removeItem('isLoggedIn');
+        setUser(null);
+        setIsAuthenticated(false);
+        return;
+      }
+
       setUser(response.data.data);
       setIsAuthenticated(true);
     } catch (error) {
@@ -93,6 +106,19 @@ export const AuthProvider = ({
 
       // Verify immediately using cookies sent by interceptor
       const me = await api.get('/auth/me');
+
+      // Block non-student roles from using this app
+      if (me.data.data?.role !== 'STUDENT') {
+        await AsyncStorage.removeItem('accessToken');
+        await AsyncStorage.removeItem('refreshToken');
+        await AsyncStorage.removeItem('isLoggedIn');
+        await AsyncStorage.removeItem('userRole');
+
+        return {
+          success: false,
+          message: 'This app is only for students. Please use the web portal for teacher/admin access.',
+        };
+      }
 
       setUser(me.data.data);
       setIsAuthenticated(true);

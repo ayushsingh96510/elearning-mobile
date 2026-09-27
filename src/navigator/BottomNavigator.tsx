@@ -12,7 +12,7 @@ import Profile from '../pages/profile/Profile'
 import Assignment from '../pages/assignment/Assignment';
 import Live from '../pages/live/Live';
 import Content from '../pages/materials/Content'
-import Academics from '../pages/academics/Academics';
+// import Academics from '../pages/academics/Academics'; // Teacher/Admin only - not needed in student app
 
 export type RootTabParamList = {
     Home: undefined,
@@ -20,7 +20,7 @@ export type RootTabParamList = {
     Assignment: undefined,
     Profile: undefined,
     Content: undefined,
-    Academics: undefined,
+    // Academics: undefined, // removed for student-only app
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -65,19 +65,14 @@ const BottomNavigator = () => {
                     <Icon name="file-multiple" color={color} size={size} />
                 ),
             }} ></Tab.Screen>
-            {user?.role === 'TEACHER' || 'ADMIN' ?
-                <Tab.Screen name='Academics' component={Academics} options={{
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="town-hall" color={color} size={size} />
-                    ),
-                }} ></Tab.Screen>
-                :
-                <Tab.Screen name='Assignment' component={Assignment} options={{
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="clipboard-text" color={color} size={size} />
-                    ),
-                }} ></Tab.Screen>
-            }
+
+            {/* Academics tab (Teacher/Admin only) removed for student-only app.
+                Assignment tab is now always shown since this app is student-specific. */}
+            <Tab.Screen name='Assignment' component={Assignment} options={{
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="clipboard-text" color={color} size={size} />
+                ),
+            }} ></Tab.Screen>
             <Tab.Screen name='Profile' component={Profile} options={{
                 tabBarIcon: ({ color, size }) => (
                     <Icon name="account" color={color} size={size} />
