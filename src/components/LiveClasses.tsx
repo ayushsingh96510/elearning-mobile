@@ -208,17 +208,34 @@ const LiveClasses: React.FC<LiveClassesProps> = ({ navigation, onJoinSession }) 
         <View style={styles.sessionDetails}>
           <View style={styles.detailItem}>
             <Icon name="book-open" size={16} color="#666" />
-            <Text style={styles.detailText}>{session.subject?.name || 'N/A'}</Text>
+            <Text
+              style={styles.detailText}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {session.subject?.name || 'N/A'}
+            </Text>
           </View>
+
           <View style={styles.detailItem}>
             <Icon name="users" size={16} color="#666" />
-            <Text style={styles.detailText}>{session.batch?.name || 'N/A'}</Text>
+            <Text
+              style={styles.detailText}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {session.batch?.name || 'N/A'}
+            </Text>
           </View>
+
           <View style={styles.detailItem}>
             <Icon name="clock" size={16} color="#666" />
-            <Text style={styles.detailText}>{session.durationMinutes}m</Text>
+            <Text style={styles.detailText} numberOfLines={1}>
+              {session.durationMinutes}m
+            </Text>
           </View>
         </View>
+
 
         <View style={styles.divider} />
 
@@ -520,16 +537,22 @@ const styles = StyleSheet.create({
   },
 
   sessionDetails: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  width: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
   },
 
   detailItem: {
+    flex: 1,
+    minWidth: 0,
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: 8,
   },
 
   detailText: {
+    flex: 1,
+    minWidth: 0,
     fontSize: 13,
     color: '#666',
     marginLeft: 6,
